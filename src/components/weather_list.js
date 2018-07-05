@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-//import { fetchWeather } from "../actions";
+import { LineChart, Line } from "recharts";
 
 class WeatherList extends Component {
   static propTypes = { weather: PropTypes.array };
@@ -11,9 +11,18 @@ class WeatherList extends Component {
   renderWeather(cityData) {
     const name = cityData.city.name;
 
+    const temps = cityData.list.map(listData => listData.main.temp);
+
+    console.log(temps);
+
     return (
       <tr key={name}>
         <td>{name}</td>
+        <td>
+          <LineChart width={120} height={180} data={temps}>
+            <Line type="monotone" stroke="#8884d8" />
+          </LineChart>
+        </td>
       </tr>
     );
   }
