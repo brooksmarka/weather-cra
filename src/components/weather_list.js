@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { LineChart, Line } from "recharts";
+import Chart from "./chart";
+import _ from "lodash";
 
 class WeatherList extends Component {
   static propTypes = { weather: PropTypes.array };
@@ -11,35 +12,19 @@ class WeatherList extends Component {
   renderWeather(cityData) {
     const name = cityData.city.name;
 
-    const data = cityData.list.map(listData => listData.main);
+    const mainData = cityData.list.map(listData => listData.main);
 
     return (
       <tr key={name}>
         <td>{name}</td>
         <td>
-          <LineChart width={120} height={180} data={data}>
-            <Line type="monotone" dot={false} dataKey="temp" stroke="red" />
-          </LineChart>
+          <Chart data={mainData} dataKey="temp" color="red" units="K" />
         </td>
         <td>
-          <LineChart width={120} height={180} data={data}>
-            <Line
-              type="monotone"
-              dot={false}
-              dataKey="pressure"
-              stroke="blue"
-            />
-          </LineChart>
+          <Chart data={mainData} dataKey="pressure" color="blue" units="hPa" />
         </td>
         <td>
-          <LineChart width={120} height={180} data={data}>
-            <Line
-              type="monotone"
-              dot={false}
-              dataKey="humidity"
-              stroke="pink"
-            />
-          </LineChart>
+          <Chart data={mainData} dataKey="humidity" color="green" units="%" />
         </td>
       </tr>
     );
@@ -51,9 +36,9 @@ class WeatherList extends Component {
         <thead>
           <tr>
             <th>City</th>
-            <th>Temperature</th>
-            <th>Pressure</th>
-            <th>Humidity</th>
+            <th>Temperature (K)</th>
+            <th>Pressure (hPa)</th>
+            <th>Humidity (%)</th>
           </tr>
         </thead>
         <tbody>{this.props.weather.map(this.renderWeather)}</tbody>
