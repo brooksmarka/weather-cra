@@ -11,16 +11,34 @@ class WeatherList extends Component {
   renderWeather(cityData) {
     const name = cityData.city.name;
 
-    const temps = cityData.list.map(listData => listData.main.temp);
-
-    console.log(temps);
+    const data = cityData.list.map(listData => listData.main);
 
     return (
       <tr key={name}>
         <td>{name}</td>
         <td>
-          <LineChart width={120} height={180} data={temps}>
-            <Line type="monotone" stroke="#8884d8" />
+          <LineChart width={120} height={180} data={data}>
+            <Line type="monotone" dot={false} dataKey="temp" stroke="red" />
+          </LineChart>
+        </td>
+        <td>
+          <LineChart width={120} height={180} data={data}>
+            <Line
+              type="monotone"
+              dot={false}
+              dataKey="pressure"
+              stroke="blue"
+            />
+          </LineChart>
+        </td>
+        <td>
+          <LineChart width={120} height={180} data={data}>
+            <Line
+              type="monotone"
+              dot={false}
+              dataKey="humidity"
+              stroke="pink"
+            />
           </LineChart>
         </td>
       </tr>
