@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Chart from "./chart";
-import _ from "lodash";
 
 class WeatherList extends Component {
   static propTypes = { weather: PropTypes.array };
